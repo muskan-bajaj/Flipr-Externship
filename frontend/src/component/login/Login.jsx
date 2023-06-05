@@ -1,12 +1,65 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [showUser, setUser] = useState({ email: "", password: "" });
+  // const redirect = useNavigate();
 
-  const login = () => {
-    console.log(email);
-    console.log(password);
+  const login = async () => {
+    const { email, password } = showUser;
+
+    if (
+      password !== "" &&
+      email !== "" &&
+      email.indexOf("@") > -1 &&
+      email.indexOf(".") !== -1
+    ) {
+      const object = {
+        email: email,
+        password: password,
+      };
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/api/user/login",
+          object,
+          {
+            headers: { Authorization: `` },
+          }
+        );
+        console.log(res);
+        console.log("logged in");
+        // redirect("/admin");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("Fill all fields");
+    }
+  };
+
+  const onChange = async (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    if (name === "email") {
+      if (value.indexOf("@") === -1 || value.indexOf(".") === -1) {
+        e.target.style.border = "2px solid #FF0000";
+        e.target.style.outline = "none";
+      } else {
+        e.target.style.border = "2px solid #000000";
+      }
+    }
+    if (name === "password") {
+      if (value === "") {
+        e.target.style.border = "2px solid #FF0000";
+        e.target.style.outline = "none";
+      } else {
+        e.target.style.border = "2px solid #000000";
+      }
+    }
+
+    setUser({ ...showUser, [name]: value });
   };
 
   return (
@@ -606,10 +659,9 @@ export default function Login() {
               type="text"
               placeholder="Enter your email"
               className="bg-transparent border-[1px] rounded border-black pl-2 h-8 focus:outline-none"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              name="email"
+              // value={email}
+              onChange={onChange}
             />
           </div>
           <div className="password p-2 w-[100%] flex flex-col justify-between">
@@ -620,10 +672,9 @@ export default function Login() {
               type="password"
               placeholder="Enter your password"
               className="bg-transparent border-[1px] rounded border-black pl-2 h-8 focus:outline-none"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              name="password"
+              // value={password}
+              onChange={onChange}
             />
           </div>
           <div className="flex justify-center items-center mt-5">

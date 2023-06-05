@@ -12,6 +12,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  designation: { type: String, required: true },
 });
 
 userSchema.statics.signUp = async function (email, password) {
@@ -21,7 +22,11 @@ userSchema.statics.signUp = async function (email, password) {
   //hashing password
   const hash = await bcrypt.hash(password, salt);
 
-  const newUser = await this.create({ email, password: hash });
+  const newUser = await this.create({
+    email,
+    password: hash,
+    designation: "admin",
+  });
   return newUser;
 };
 
