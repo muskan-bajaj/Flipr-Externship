@@ -8,7 +8,7 @@ function App() {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   return (
     <BrowserRouter>
-      {isLoggedIn ? <NavBar /> : <></>}
+      {isLoggedIn ? <NavBar element="LOGOUT" /> : <NavBar element="LOGIN" />}
       <Routes>
         {isLoggedIn ? <Route path="/admin" element={<Welcome />} /> : <></>}
         <Route path="/login" element={<Login />} />
