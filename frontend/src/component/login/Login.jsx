@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
   const [showUser, setUser] = useState({ email: "", password: "" });
-  // const redirect = useNavigate();
+  const redirect = useNavigate();
+  const authCxt = useContext(AuthContext);
 
   const login = async () => {
     const { email, password } = showUser;
@@ -29,9 +31,12 @@ export default function Login() {
         );
         console.log(res);
         console.log("logged in");
-        // redirect("/admin");
+        authCxt.login(res.data.designation, true, email, res.data.id);
+        setUser({ email: "", password: "" });
+        redirect("/admin");
       } catch (err) {
         console.log(err);
+        setUser({ email: "", password: "" });
       }
     } else {
       console.log("Fill all fields");
@@ -44,18 +49,18 @@ export default function Login() {
 
     if (name === "email") {
       if (value.indexOf("@") === -1 || value.indexOf(".") === -1) {
-        e.target.style.border = "2px solid #FF0000";
+        e.target.style.border = "1px solid #FF0000";
         e.target.style.outline = "none";
       } else {
-        e.target.style.border = "2px solid #000000";
+        e.target.style.border = "1px solid #000000";
       }
     }
     if (name === "password") {
       if (value === "") {
-        e.target.style.border = "2px solid #FF0000";
+        e.target.style.border = "1px solid #FF0000";
         e.target.style.outline = "none";
       } else {
-        e.target.style.border = "2px solid #000000";
+        e.target.style.border = "1px solid #000000";
       }
     }
 
@@ -660,7 +665,7 @@ export default function Login() {
               placeholder="Enter your email"
               className="bg-transparent border-[1px] rounded border-black pl-2 h-8 focus:outline-none"
               name="email"
-              // value={email}
+              value={showUser.email}
               onChange={onChange}
             />
           </div>
@@ -673,7 +678,7 @@ export default function Login() {
               placeholder="Enter your password"
               className="bg-transparent border-[1px] rounded border-black pl-2 h-8 focus:outline-none"
               name="password"
-              // value={password}
+              value={showUser.password}
               onChange={onChange}
             />
           </div>
