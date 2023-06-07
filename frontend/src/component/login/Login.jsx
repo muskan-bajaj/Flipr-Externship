@@ -31,7 +31,10 @@ export default function Login() {
         );
         console.log(res);
         console.log("logged in");
-        authCxt.login(res.data.designation, true, email, res.data.id);
+
+        authCxt.login(res.data.designation, email, res.data.id);
+        authCxt.setLoggedIn(true);
+
         setUser({ email: "", password: "" });
         redirect("/admin");
       } catch (err) {

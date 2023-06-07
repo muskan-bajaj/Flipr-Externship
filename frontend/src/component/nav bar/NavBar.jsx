@@ -1,10 +1,13 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-export default function NavBar(props) {
+export default function NavBar() {
+  const authCxt = useContext(AuthContext);
   const redirect = useNavigate();
-  const login = () => {
-    redirect("/login");
+
+  const logout = () => {
+    authCxt.setLoggedIn(false);
   };
 
   return (
@@ -13,12 +16,22 @@ export default function NavBar(props) {
         Employee Management
       </div>
       <div className="flex justify-center items-center pr-4">
-        <button
-          className="text-white hover:border-b-2 border-white"
-          onClick={login}
-        >
-          {props.element}
-        </button>
+        {!authCxt.loggedIn ? (
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <button className="text-white hover:border-b-2 border-white">
+              Login
+            </button>
+          </Link>
+        ) : (
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <button
+              className="text-white hover:border-b-2 border-white"
+              onClick={logout}
+            >
+              Logout
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -1,22 +1,22 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 
 export const AuthContext = React.createContext({
   designation: "",
-  isLoggedIn: "",
+  // isLoggedIn: "",
   email: "",
   userID: "",
 });
 
 export const AuthContextProvider = (props) => {
-  //   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   //   const [onLogin, setOnLogin] = useState(false);
   //   const [userID, setUserID] = useState("");
   //   const [fields, setFields] = useState([{}]);
   //   const [notices, setNotices] = useState([]);
 
-  const login = (designation, isloggedIn, email, userID) => {
+  const login = (designation, email, userID) => {
     localStorage.setItem("access", designation);
-    localStorage.setItem("isLoggedIn", isloggedIn);
+    // localStorage.setItem("isLoggedIn", isloggedIn);
     localStorage.setItem("email", email);
     localStorage.setItem("id", userID);
   };
@@ -24,8 +24,8 @@ export const AuthContextProvider = (props) => {
   const contextValue = useMemo(
     () => ({
       login: login,
-      //   loggedIn: loggedIn,
-      //   setLoggedIn: setLoggedIn,
+      loggedIn: loggedIn,
+      setLoggedIn: setLoggedIn,
       //   userID: userID,
       //   setUserID: setUserID,
       //   onLogin: onLogin,
@@ -35,7 +35,7 @@ export const AuthContextProvider = (props) => {
       //   notices: notices,
       //   setNotices: setNotices,
     }),
-    []
+    [loggedIn, setLoggedIn]
   );
 
   return (
