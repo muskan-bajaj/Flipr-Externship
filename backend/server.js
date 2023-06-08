@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const userRoute = require("./route/userRoute");
+const addEmployee = require("./route/addEmployeeRoute");
 const mongoose = require("mongoose");
 
 app.use((req, res, next) => {
@@ -33,3 +34,4 @@ mongoose
 app.use(express.json());
 
 app.use("/api/user", userRoute);
+app.use("/api/admin", addEmployee);
