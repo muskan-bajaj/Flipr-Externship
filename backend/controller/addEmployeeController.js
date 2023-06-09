@@ -19,7 +19,8 @@ const addEmployee = async (req, res) => {
         numbers: true,
         symbols: true,
       });
-      const hashedPassword = bcrypt.hashSync(password, process.env.SECRET_KEY);
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
 
       // console.log(hashedPassword);
       console.log("Password set");
@@ -34,7 +35,7 @@ const addEmployee = async (req, res) => {
       await data.save();
       console.log("Employee Added");
 
-      return res.status(200).json({ id: id, email: email });
+      return res.status(200).json({ id: data._id, email: email });
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: err });
