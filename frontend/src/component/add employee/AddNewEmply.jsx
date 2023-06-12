@@ -54,7 +54,7 @@ export default function AddNewEmply() {
           "http://localhost:5000/api/admin/addEmployee",
           object,
           {
-            headers: { Authorization: `` },
+            headers: { Authorization: `${localStorage.getItem("access")}` },
           }
         );
         console.log(res);
