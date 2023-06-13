@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../model/userSchema");
 
 const addEmployee = async (req, res) => {
-  const { name, email, designation } = req.body;
+  const { name, email, designation, contactNumber, joiningDate } = req.body;
   const user = await User.findOne({ email });
 
   if (user) {
@@ -30,6 +30,8 @@ const addEmployee = async (req, res) => {
         email: email,
         designation: designation,
         password: hashedPassword,
+        contactNumber: contactNumber,
+        joiningDate: joiningDate,
       });
 
       await data.save();

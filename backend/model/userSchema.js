@@ -17,6 +17,14 @@ const userSchema = new Schema({
     required: true,
   },
   designation: { type: String, required: true },
+  contactNumber: {
+    type: Number,
+    required: true,
+  },
+  joiningDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 userSchema.statics.signUp = async function (email, password) {

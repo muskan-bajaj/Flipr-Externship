@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthContext } from "./component/context/AuthContext";
 import Login from "./component/login/Login";
-import Welcome from "./component/welcome page/Welcome";
+import LoginLandingAdmin from "./component/admin/login landing/LoginLanding";
+import LoginLandingEmployee from "./component/employee/LoginLanding/LoginLanding";
 import NavBar from "./component/nav bar/NavBar";
 import LandingPage from "./component/landing/LandingPage";
-import AddNewEmply from "./component/add employee/AddNewEmply";
+import AddNewEmply from "./component/admin/add employee/AddNewEmply";
 import Error from "./component/error/Error";
+import AddTask from "./component/employee/add task/AddTask";
 // import NavBar from "./component/nav bar/NavBar";
 
 function App() {
@@ -18,10 +20,23 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        {authCxt.loggedIn && <Route path="/admin" element={<Welcome />} />}
-        {authCxt.loggedIn && authCxt.designation == "admin" && (
+
+        {/* admin */}
+        {authCxt.loggedIn && authCxt.designation === "admin" && (
+          <Route path="/admin" element={<LoginLandingAdmin />} />
+        )}
+        {authCxt.loggedIn && authCxt.designation === "admin" && (
           <Route path="/admin/newEmployee" element={<AddNewEmply />} />
         )}
+
+        {/* employee */}
+        {authCxt.loggedIn && authCxt.designation === "employee" && (
+          <Route path="/employee" element={<LoginLandingEmployee />} />
+        )}
+        {authCxt.loggedIn && authCxt.designation === "employee" && (
+          <Route path="/employee/newTask" element={<AddTask />} />
+        )}
+
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

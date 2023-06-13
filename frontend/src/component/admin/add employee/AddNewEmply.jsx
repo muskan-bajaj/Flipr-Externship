@@ -7,6 +7,8 @@ export default function AddNewEmply() {
     name: "",
     email: "",
     designation: "",
+    contactNumber: "",
+    joiningDate: "",
   });
   const redirect = useNavigate();
 
@@ -22,7 +24,7 @@ export default function AddNewEmply() {
         e.target.style.border = "1px solid #000000";
       }
     }
-    if (name === "name") {
+    if (name === "name" || name === "contactNumber" || name === "joiningDate") {
       if (value === "") {
         e.target.style.border = "1px solid #FF0000";
         e.target.style.outline = "none";
@@ -35,11 +37,14 @@ export default function AddNewEmply() {
   };
 
   const addEmployee = async () => {
-    const { name, email, designation } = employeeDetails;
+    const { name, email, designation, contactNumber, joiningDate } =
+      employeeDetails;
 
     if (
       designation !== "" &&
       name !== "" &&
+      contactNumber !== "" &&
+      joiningDate !== "" &&
       email !== "" &&
       email.indexOf("@") > -1 &&
       email.indexOf(".") !== -1
@@ -48,6 +53,8 @@ export default function AddNewEmply() {
         name: name,
         email: email,
         designation: designation,
+        contactNumber: contactNumber,
+        joiningDate: joiningDate,
       };
       try {
         const res = await axios.post(
@@ -59,11 +66,23 @@ export default function AddNewEmply() {
         );
         console.log(res);
 
-        setEmployeeDetails({ name: "", email: "", designation: "" });
+        setEmployeeDetails({
+          name: "",
+          email: "",
+          designation: "",
+          contactNumber: "",
+          joiningDate: "dd-mm-yyyy",
+        });
         redirect("/admin");
       } catch (err) {
         console.log(err);
-        setEmployeeDetails({ name: "", email: "", designation: "" });
+        setEmployeeDetails({
+          name: "",
+          email: "",
+          designation: "",
+          contactNumber: "",
+          joiningDate: "dd-mm-yyyy",
+        });
       }
     } else {
       console.log("Fill all fields");
@@ -102,6 +121,24 @@ export default function AddNewEmply() {
             <option value="admin">Manager</option>
             <option value="employee">Employee</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="contactNumber">Contact Number</label>
+          <input
+            type="number"
+            name="contactNumber"
+            value={employeeDetails.contactNumber}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="joiningDate">Joining Date</label>
+          <input
+            type="date"
+            name="joiningDate"
+            value={employeeDetails.joiningDate}
+            onChange={onChange}
+          />
         </div>
         <div>
           <button

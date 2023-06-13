@@ -37,7 +37,12 @@ export default function Login() {
         authCxt.setDesignation(res.data.designation);
 
         setUser({ email: "", password: "" });
-        redirect("/admin");
+
+        if (res.data.designation === "admin") {
+          redirect("/admin");
+        } else if (res.data.designation === "employee") {
+          redirect("/employee");
+        }
       } catch (err) {
         console.log(err);
         setUser({ email: "", password: "" });
