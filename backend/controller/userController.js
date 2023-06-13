@@ -9,12 +9,12 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await userSchema.login(email, password);
-    const jwtToken = createToken(user.designation);
+    // const jwtToken = createToken(user.designation);
     const id = user._id;
     res.status(200).json({
       success: true,
       user: email,
-      designation: jwtToken,
+      designation: user.designation,
       id: id,
     });
     // res.status(200).json({ email, jwtToken, id });

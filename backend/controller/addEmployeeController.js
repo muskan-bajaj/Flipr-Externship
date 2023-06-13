@@ -22,7 +22,7 @@ const addEmployee = async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
-      // console.log(hashedPassword);
+      console.log(password);
       console.log("Password set");
 
       const data = new User({

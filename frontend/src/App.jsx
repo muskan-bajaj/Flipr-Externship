@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         {authCxt.loggedIn && <Route path="/admin" element={<Welcome />} />}
-        {authCxt.loggedIn && (
+        {authCxt.loggedIn && authCxt.designation == "admin" && (
           <Route path="/admin/newEmployee" element={<AddNewEmply />} />
         )}
         <Route path="*" element={<Error />} />

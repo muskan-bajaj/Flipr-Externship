@@ -34,6 +34,7 @@ export default function Login() {
 
         authCxt.login(res.data.designation, email, res.data.id);
         authCxt.setLoggedIn(true);
+        authCxt.setDesignation(res.data.designation);
 
         setUser({ email: "", password: "" });
         redirect("/admin");

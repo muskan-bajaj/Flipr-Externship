@@ -9,6 +9,7 @@ export const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [designation, setDesignation] = useState("");
   //   const [onLogin, setOnLogin] = useState(false);
   //   const [userID, setUserID] = useState("");
   //   const [fields, setFields] = useState([{}]);
@@ -26,6 +27,8 @@ export const AuthContextProvider = (props) => {
       login: login,
       loggedIn: loggedIn,
       setLoggedIn: setLoggedIn,
+      designation: designation,
+      setDesignation: setDesignation,
       //   userID: userID,
       //   setUserID: setUserID,
       //   onLogin: onLogin,
@@ -35,7 +38,7 @@ export const AuthContextProvider = (props) => {
       //   notices: notices,
       //   setNotices: setNotices,
     }),
-    [loggedIn, setLoggedIn]
+    [loggedIn, setLoggedIn, designation, setDesignation]
   );
 
   return (
