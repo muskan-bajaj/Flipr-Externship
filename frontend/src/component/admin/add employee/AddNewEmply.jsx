@@ -59,10 +59,7 @@ export default function AddNewEmply() {
       try {
         const res = await axios.post(
           "http://localhost:5000/api/admin/addEmployee",
-          object,
-          {
-            headers: { Authorization: `${localStorage.getItem("access")}` },
-          }
+          object
         );
         console.log(res);
 

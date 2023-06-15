@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../../employee/datePicker.css";
+import { useNavigate } from "react-router-dom";
 
 export default function AddTask() {
-  // const [startDate, setStartDate] = useState(new Date());
+  const redirect = useNavigate();
   const [taskData, setTaskData] = useState({
     description: "",
     type: "",
@@ -34,10 +36,46 @@ export default function AddTask() {
     setTaskData({ ...taskData, [name]: value });
   };
 
-  const addNewTask = () => {
+  const addNewTask = async () => {
     const { description, type, startTime, time } = taskData;
     if (description !== "" && type !== "" && startTime !== "" && time !== "") {
-      console.log(taskData);
+      //convert to --Thu Jun 15 2023 11:13:47 AM-- format
+      const start =
+        startTime.toDateString().toString() +
+        " " +
+        startTime.toLocaleTimeString().toString();
+      const object = {
+        description: description,
+        type: type,
+        startTime: start,
+        time: time,
+        employee: localStorage.getItem("id"),
+      };
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/api/employee/addTask",
+          object
+        );
+
+        console.log(res);
+
+        setTaskData({
+          description: "",
+          type: "",
+          startTime: new Date(),
+          time: "",
+        });
+
+        redirect("/employee");
+      } catch (err) {
+        console.log(err);
+        setTaskData({
+          description: "",
+          type: "",
+          startTime: new Date(),
+          time: "",
+        });
+      }
     } else {
       console.log("fill all fields");
     }
