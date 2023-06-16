@@ -1,5 +1,5 @@
-const User = require("../model/userSchema");
-const Task = require("../model/taskSchema");
+const User = require("../../model/userSchema");
+const Task = require("../../model/taskSchema");
 
 const addTask = async (req, res) => {
   const { description, type, startTime, time, employee } = req.body;

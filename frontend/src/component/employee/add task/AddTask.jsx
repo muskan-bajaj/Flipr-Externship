@@ -56,16 +56,13 @@ export default function AddTask() {
           "http://localhost:5000/api/employee/addTask",
           object
         );
-
         console.log(res);
-
         setTaskData({
           description: "",
           type: "",
           startTime: new Date(),
           time: "",
         });
-
         redirect("/employee");
       } catch (err) {
         console.log(err);
@@ -113,6 +110,7 @@ export default function AddTask() {
               timeInputLabel="Time:"
               dateFormat="MM/dd/yyyy h:mm aa"
               showTimeInput
+              maxDate={new Date()}
             />
           </div>
         </div>

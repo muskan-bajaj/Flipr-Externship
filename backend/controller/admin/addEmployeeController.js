@@ -1,7 +1,7 @@
 require("dotenv").config();
 const passGenerator = require("generate-password");
 const bcrypt = require("bcrypt");
-const User = require("../model/userSchema");
+const User = require("../../model/userSchema");
 
 const addEmployee = async (req, res) => {
   const { name, email, designation, contactNumber, joiningDate } = req.body;

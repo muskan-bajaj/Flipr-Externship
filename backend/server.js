@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const userRoute = require("./route/userRoute");
-const addEmployeeRoute = require("./route/addEmployeeRoute");
-const addTaskRoute = require("./route/addTaskRoute");
+const addEmployeeRoute = require("./route/admin/addEmployeeRoute");
+const addTaskRoute = require("./route/employee/addTaskRoute");
 const mongoose = require("mongoose");
 
 app.use((req, res, next) => {
