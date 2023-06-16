@@ -89,7 +89,7 @@ export default function EmployeeCharts() {
 
   useEffect(() => {
     makeRequestCurrent();
-    // makeRequestPrevious();
+    makeRequestPrevious();
   }, []);
 
   return (
