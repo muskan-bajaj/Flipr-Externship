@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import EmployeeCharts from "../charts/EmployeeCharts";
+import PieChart from "../charts/PieCharts";
+import StackedChart from "../charts/StackedChart";
 
 export default function LoginLanding() {
   return (
@@ -14,7 +15,10 @@ export default function LoginLanding() {
       </div>
       <div>
         <div className="ml-10 font-semibold text-2xl">Task Analysis</div>
-        <EmployeeCharts />
+        <PieChart />
+      </div>
+      <div>
+        <StackedChart />
       </div>
     </div>
   );

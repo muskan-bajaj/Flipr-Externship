@@ -3,7 +3,7 @@ import axios from "axios";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 
-export default function EmployeeCharts() {
+export default function PieCharts() {
   const [currentDay, setCurrentDay] = useState({
     labels: ["Breaks", "Meetings", "Work"],
     datasets: [],
