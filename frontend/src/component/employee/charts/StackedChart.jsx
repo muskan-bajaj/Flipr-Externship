@@ -89,6 +89,7 @@ export default function StackedChart() {
 
   useEffect(() => {
     makeRequest();
+    // console.log(stackedData);
   }, []);
 
   const options = {
@@ -104,7 +105,6 @@ export default function StackedChart() {
 
   return (
     <div>
-      <div>blaaaaaaaaaaaaaaajjjjjjjjjj</div>
       <Bar data={stackedData} options={options} />
     </div>
   );
